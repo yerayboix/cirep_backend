@@ -12,7 +12,6 @@ class UserManager(auth_models.BaseUserManager):
             last_name: str,
             email: str,
             phone_number: str,
-            age: int,
             password: str = None,
             is_staff=False,
             is_superuser=False,
@@ -28,7 +27,6 @@ class UserManager(auth_models.BaseUserManager):
         user.first_name = first_name
         user.last_name = last_name
         user.phone_number = phone_number
-        user.age = age
         user.set_password(password)
         user.is_active = True
         user.is_staff = is_staff
@@ -45,7 +43,6 @@ class UserManager(auth_models.BaseUserManager):
             last_name=last_name,
             email=email,
             phone_number=phone_number,
-            age=10,
             password=password,
             is_staff=True,
             is_superuser=True,
@@ -61,7 +58,6 @@ class User(auth_models.AbstractUser):
     last_name = models.CharField(verbose_name="Last Name",max_length=255)
     email = models.CharField(verbose_name="Email",max_length=255,unique=True)
     phone_number = models.CharField(verbose_name="Phone number",max_length=9,unique=True)
-    age = models.IntegerField(verbose_name="Age",validators=[MinValueValidator(0), MaxValueValidator(100)])
     password = models.CharField(max_length=255)
     username = None
 
