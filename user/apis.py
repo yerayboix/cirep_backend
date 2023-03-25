@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
-from rest_framework import views, response, exceptions, permissions
+from requests import Response
+from rest_framework import views, response, exceptions, permissions, status
 import user.serializer as user_serializer
 from . import services
 from . import authentication
@@ -63,3 +64,20 @@ class LogoutApi(views.APIView):
         resp.data = {"message": "so long farewell"}
 
         return resp
+
+class ChangePasswordApi(views.APIView):
+#el usuario tiene que estar autenticado
+    authentication_classes = (authentication.CustomUserAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def put(self, request):
+        user = request.user
+        password_serializer = user_serializer.ChangePasswordSerializer(data=request.data)
+        password_serializer.is_valid(raise_exception=True)
+        password_serializer.validate_old_password()
+
+        serializer = user_serializer.UserSerializer(user)
+        return response.Response(serializer.data)
+
+
+
