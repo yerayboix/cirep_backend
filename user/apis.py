@@ -32,11 +32,7 @@ class LoginApi(views.APIView):
 
         token = services.create_token(user_id=user.id)
 
-        resp = response.Response()
-
-        resp.set_cookie(key="jwt", value=token, httponly=True)
-
-        return resp
+        return response.Response(data={"token":token})
 
 
 
@@ -53,13 +49,9 @@ class UserApi(views.APIView):
         return response.Response(serializer.data)
 
 
-class LogoutApi(views.APIView):
+class LogoutApi(views.APIView):#creo que no es necesario
     authentication_classes = (authentication.CustomUserAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
-        resp = response.Response()
-        resp.delete_cookie("jwt")
-        resp.data = {"message": "so long farewell"}
-
-        return resp
+        return response.Response()
