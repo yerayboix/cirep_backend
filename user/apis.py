@@ -87,4 +87,19 @@ class ChangePasswordApi(views.APIView):
         return resp
 
 
+class UpdateProfiledApi(views.APIView):
+    authentication_classes = (authentication.CustomUserAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def put(self, request):
+        data=request.data
+        serializer = user_serializer.UpdateUserSerializer(data=data,context={'request': request})
+        serializer.is_valid()
+        serializer.validate_email(data['email'])
+        serializer.update(data)
+
+        user_model = user_email_selector(request.user)
+
+        serializer.update(instance=user_model,validated_data=data)
+        return response.Response(data=serializer.data)
 
