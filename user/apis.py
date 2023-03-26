@@ -5,6 +5,8 @@ from rest_framework import views, response, exceptions, permissions, status
 import user.serializer as user_serializer
 from . import services
 from . import authentication
+from .services import user_email_selector
+
 # Create your views here.
 User = get_user_model()
 
@@ -71,13 +73,18 @@ class ChangePasswordApi(views.APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def put(self, request):
-        user = request.user
-        password_serializer = user_serializer.ChangePasswordSerializer(data=request.data)
-        password_serializer.is_valid(raise_exception=True)
-        password_serializer.validate_old_password()
+        data=request.data
+        password_serializer = user_serializer.ChangePasswordSerializer(data=data,context={'request': request})
+        password_serializer.is_valid()
+        password_serializer.validate(data)
+        password_serializer.validate_old_password(request.data['old_password'])
+        user_model = user_email_selector(request.user)
 
-        serializer = user_serializer.UserSerializer(user)
-        return response.Response(serializer.data)
+        password_serializer.update(instance=user_model,validated_data=data)
+        resp = response.Response()
+        resp.data = {"message": "password updated"}
+
+        return resp
 
 
 
