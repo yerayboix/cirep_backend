@@ -10,15 +10,22 @@ from rest_framework.response import Response
 class Incidencia(models.Model):
     STATE_CHOICES = (
         ('P', 'En proceso'),
-        ('A', 'Arreglado')
+        ('A', 'Arreglada'),
+        ('PR', 'Pendiente de revisión'),
+        ('D', 'Descartada')
     )
 
-    id = models.CharField(max_length=50, primary_key=True)
+    id_report = models.CharField(max_length=255, primary_key=True)
+    title = models.CharField(max_length=255)
+    report_date = models.DateField(null=True)
+    description = models.TextField()
     image = models.CharField(max_length=255)
-    author = models.CharField(max_length=255)
     state = models.CharField(choices=STATE_CHOICES, max_length=50, default=0)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    author = models.CharField(max_length=255)
+    report_type = models.CharField(max_length=255)
+
 
     def __str__(self):
         return self.id
