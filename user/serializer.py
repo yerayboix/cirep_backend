@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from . import services
 
+
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     first_name = serializers.CharField()

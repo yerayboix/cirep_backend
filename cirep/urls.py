@@ -2,12 +2,12 @@ from django.urls import include, path
 from rest_framework import routers
 
 import report.views
-from backend import views
 from django.contrib import admin
 
+import user.views
+
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register(u'users', user.views.UserViewSet)
 router.register(r'reports', report.views.IncidenciaViewSet)
 
 # Wire up our API using automatic URL routing.

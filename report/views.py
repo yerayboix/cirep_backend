@@ -14,7 +14,6 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
                         mixins.DestroyModelMixin,
                         mixins.ListModelMixin,
                         viewsets.GenericViewSet):
-
     queryset = Incidencia.objects.all()
     serializer_class = IncidenciaSerializer
 

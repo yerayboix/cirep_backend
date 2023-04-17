@@ -4,8 +4,10 @@ from rest_framework import views, response, exceptions, permissions
 import user.serializer as user_serializer
 from . import services
 from . import authentication
+
 # Create your views here.
 User = get_user_model()
+
 
 class RegisterApi(views.APIView):
     def post(self, request):
@@ -17,9 +19,10 @@ class RegisterApi(views.APIView):
 
         return response.Response(data=serializer.data)
 
+
 class LoginApi(views.APIView):
     def post(self, request):
-        email = request.data["email"]#todo cambiar?
+        email = request.data["email"]  # todo cambiar?
         password = request.data["password"]
 
         user = services.user_email_selector(email=email)
@@ -39,9 +42,8 @@ class LoginApi(views.APIView):
         return resp
 
 
-
 class UserApi(views.APIView):
-#el usuario tiene que estar autenticado
+    # el usuario tiene que estar autenticado
     authentication_classes = (authentication.CustomUserAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 

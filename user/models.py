@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth import models as auth_models
 from django.contrib.auth import get_user_model
 from enum import Enum
+
+
 # Create your models here.
 
 class UserManager(auth_models.BaseUserManager):
@@ -38,7 +40,7 @@ class UserManager(auth_models.BaseUserManager):
         return user
 
     def create_superuser(
-        self, first_name: str, last_name: str, email: str, phone_number:str, password: str
+            self, first_name: str, last_name: str, email: str, phone_number: str, password: str
     ) -> "User":
         user = self.create_user(
             first_name=first_name,
@@ -55,19 +57,16 @@ class UserManager(auth_models.BaseUserManager):
         return user
 
 
-
 class User(auth_models.AbstractUser):
-    first_name = models.CharField(verbose_name="First Name",max_length=255)
-    last_name = models.CharField(verbose_name="Last Name",max_length=255)
-    email = models.CharField(verbose_name="Email",max_length=255,unique=True)
-    phone_number = models.CharField(verbose_name="Phone number",max_length=9,unique=True)
-    age = models.IntegerField(verbose_name="Age",validators=[MinValueValidator(0), MaxValueValidator(100)])
+    first_name = models.CharField(verbose_name="First Name", max_length=255)
+    last_name = models.CharField(verbose_name="Last Name", max_length=255)
+    email = models.CharField(verbose_name="Email", max_length=255, unique=True)
+    phone_number = models.CharField(verbose_name="Phone number", max_length=9, unique=True)
+    age = models.IntegerField(verbose_name="Age", validators=[MinValueValidator(0), MaxValueValidator(100)])
     password = models.CharField(max_length=255)
     username = None
 
     object = UserManager()
 
-    USERNAME_FIELD =  "email"
-    REQUIRED_FIELDS = ["first_name","last_name"]
-
-
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name"]
