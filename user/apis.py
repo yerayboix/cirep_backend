@@ -15,11 +15,26 @@ class RegisterApi(views.APIView):
         data = serializer.validated_data
         serializer.instance = services.create_user(user_dc=data)
 
-        return response.Response(data=serializer.data)
+        email = request.data["email"]  # todo cambiar?
+        password = request.data["password"]
+
+        user = services.user_email_selector(email=email)
+
+        if user is None:
+            raise exceptions.AuthenticationFailed("Invalid Credentials")
+
+        if not user.check_password(raw_password=password):
+            raise exceptions.AuthenticationFailed("Invalid Credentials")
+
+        token = services.create_token(user_id=user.id)
+
+        return response.Response(data={"token": token})
+
+
 
 class LoginApi(views.APIView):
     def post(self, request):
-        email = request.data["email"]#todo cambiar?
+        email = request.data["email"]
         password = request.data["password"]
 
         user = services.user_email_selector(email=email)
