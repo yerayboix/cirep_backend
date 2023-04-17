@@ -25,7 +25,7 @@ JWT_SECRET =  'subscribetorithmic'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '10.0.2.2']
+ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '10.0.2.2','127.0.0.1']
 
 
 # Application definition
