@@ -4,10 +4,8 @@ from rest_framework import views, response, exceptions, permissions
 import user.serializer as user_serializer
 from . import services
 from . import authentication
-
 # Create your views here.
 User = get_user_model()
-
 
 class RegisterApi(views.APIView):
     def post(self, request):
@@ -19,10 +17,9 @@ class RegisterApi(views.APIView):
 
         return response.Response(data=serializer.data)
 
-
 class LoginApi(views.APIView):
     def post(self, request):
-        email = request.data["email"]  # todo cambiar?
+        email = request.data["email"]#todo cambiar?
         password = request.data["password"]
 
         user = services.user_email_selector(email=email)
@@ -35,15 +32,12 @@ class LoginApi(views.APIView):
 
         token = services.create_token(user_id=user.id)
 
-        resp = response.Response()
+        return response.Response(data={"token":token})
 
-        resp.set_cookie(key="jwt", value=token, httponly=True)
-
-        return resp
 
 
 class UserApi(views.APIView):
-    # el usuario tiene que estar autenticado
+#el usuario tiene que estar autenticado
     authentication_classes = (authentication.CustomUserAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -55,13 +49,9 @@ class UserApi(views.APIView):
         return response.Response(serializer.data)
 
 
-class LogoutApi(views.APIView):
+class LogoutApi(views.APIView):#creo que no es necesario
     authentication_classes = (authentication.CustomUserAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
-        resp = response.Response()
-        resp.delete_cookie("jwt")
-        resp.data = {"message": "so long farewell"}
-
-        return resp
+        return response.Response()
