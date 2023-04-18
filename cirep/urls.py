@@ -4,10 +4,8 @@ from rest_framework import routers
 import report.views
 from django.contrib import admin
 
-import user.views
 
 router = routers.DefaultRouter()
-router.register(u'users', user.views.UserViewSet)
 router.register(r'reports', report.views.IncidenciaViewSet)
 
 # Wire up our API using automatic URL routing.
