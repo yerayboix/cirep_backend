@@ -1,8 +1,10 @@
+
 from django.db import models
 from rest_framework import serializers, viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from user.authentication import CustomUserAuthentication
 from user.models import User
 from user.serializer import UserSerializer
 
@@ -32,6 +34,16 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def change_password(self, request, pk=None):
         user = self.get_object()
+        print(user.id)
+        cua = CustomUserAuthentication()
+
+        request_user = request.headers['token']
+        request_user = cua.authenticate(request_user)
+
+        print(request_user)
+        # verificamos que el usuario que quiere cambiar la contraseña sea el mismo que al que se le quiere cambiar
+        if request_user['id'] != user.id:
+            return Response({'error': 'No tienes permisos para cambiar la contraseña de este usuario.'}, status=status.HTTP_401_UNAUTHORIZED)
         password = request.data.get('password')
         if password:
             user.set_password(password)
