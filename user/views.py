@@ -28,7 +28,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
         # devuelve la respuesta con el objeto Usuario creado
         usuario.set_password(data['password'])
-        usuario.save()
+        try:
+            usuario.save()
+        except:
+            return Response({'error': 'Usuario ya registrado'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = self.get_serializer(usuario)
         headers = self.get_success_headers(serializer.data)
         response = Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -53,15 +56,14 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def change_password(self, request, pk=None):
         user = self.get_object()
-        print(user.id)
         cua = CustomUserAuthentication()
 
-        request_user = request.headers['token']
-        request_user = cua.authenticate(request_user)
-
-        print(request_user)
+        request_user = cua.authenticate(request)
+        if request_user is None:
+            return Response({'error': 'Necesitas iniciar sesión'},
+                            status=status.HTTP_401_UNAUTHORIZED)
         # verificamos que el usuario que quiere cambiar la contraseña sea el mismo que al que se le quiere cambiar
-        if request_user['id'] != user.id:
+        if request_user.id != user.id:
             return Response({'error': 'No tienes permisos para cambiar la contraseña de este usuario.'}, status=status.HTTP_401_UNAUTHORIZED)
         password = request.data.get('password')
         if password:

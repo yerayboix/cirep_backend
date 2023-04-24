@@ -14,8 +14,6 @@ class Incidencia(models.Model):
         ('PR', 'Pendiente de revisión'),
         ('D', 'Descartada')
     )
-
-    id_report = models.CharField(max_length=255, primary_key=True)
     title = models.CharField(max_length=255)
     report_date = models.DateField(null=True)
     description = models.TextField()
@@ -25,7 +23,6 @@ class Incidencia(models.Model):
     longitude = models.FloatField()
     author = models.CharField(max_length=255)
     report_type = models.CharField(max_length=255)
-
 
     def __str__(self):
         return self.id
