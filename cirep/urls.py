@@ -8,7 +8,6 @@ import user.views
 
 router = routers.DefaultRouter()
 router.register(r'reports', report.views.IncidenciaViewSet)
-router.register(u'users', user.views.UserViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

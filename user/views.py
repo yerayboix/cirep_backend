@@ -14,6 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    @action(detail=True, methods=['post'])
     def create(self, request, *args, **kwargs):
         # obtén los datos de la petición
         data = request.data.copy()
@@ -30,15 +31,17 @@ class UserViewSet(viewsets.ModelViewSet):
         usuario.save()
         serializer = self.get_serializer(usuario)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
+        response = Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        token = services.create_token(user_id=usuario.id)
+        response.data['token'] = token
+        return response
 
     @action(detail=True, methods=['post'])
     def login(self, request):
         email = request.data["email"]
         password = request.data["password"]
 
-        user = models.User.objects.filter(email=email).first()
+        user = User.objects.filter(email=email).first()
 
         if user is None or not user.check_password(raw_password=password):
             return Response({'error': 'Credenciales no validos'}, status=status.HTTP_400_BAD_REQUEST)
