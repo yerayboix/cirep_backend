@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from user.authentication import CustomUserAuthentication
 from user.models import User
 from user.serializer import UserSerializer
+from . import services
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,6 +31,21 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(usuario)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+    @action(detail=True, methods=['post'])
+    def login(self, request):
+        email = request.data["email"]
+        password = request.data["password"]
+
+        user = models.User.objects.filter(email=email).first()
+
+        if user is None or not user.check_password(raw_password=password):
+            return Response({'error': 'Credenciales no validos'}, status=status.HTTP_400_BAD_REQUEST)
+
+        token = services.create_token(user_id=user.id)
+
+        return Response(data={"token": token})
 
     @action(detail=True, methods=['post'])
     def change_password(self, request, pk=None):
