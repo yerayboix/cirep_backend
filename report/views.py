@@ -1,4 +1,4 @@
-from django.db import models
+from django.http import HttpResponse
 from rest_framework import serializers, viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -22,7 +22,7 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
 
     # personalizamos el endpoint para cambiar el estado
     @action(methods=['post'], detail=True, url_path='change-state')
-    def change_state(self, request, pk=None):
+    def change_state(self, request):
         instance = self.get_object()
         state = request.data.get('state')
         if state not in dict(Incidencia.STATE_CHOICES):
@@ -34,8 +34,8 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
     @action(methods=['get'], detail=True, url_path='get-reports')
     def get_all_reports(self, request):
         reports = Incidencia.objects.all()
-        print(request.data)
-        return Response({'reports': reports})
+        data = serializers.serialize('json', reports)
+        return HttpResponse(data, content_type='application/json')
 
     @action(methods=['get'], detail=True, url_path='get-user-reports')
     def get_user_reports(self, request):
@@ -44,8 +44,8 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
 
         user = User.objects.filter(email=request_user.email).first()
         reports = Incidencia.objects.filter(author=user.email)
-        print(request.data)
-        return Response({'user_reports': reports})
+        data = serializers.serialize('json', reports)
+        return HttpResponse(data, content_type='application/json')
 
     @action(methods=['post'], detail=True, url_path='create-report')
     def create_report(self, request):
