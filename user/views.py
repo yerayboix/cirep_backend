@@ -24,6 +24,7 @@ class UserViewSet(viewsets.ModelViewSet):
             email=data.get('email', ''),
             first_name=data.get('first_name', ''),
             last_name=data.get('last_name', ''),
+            phone_number=data.get('phone_number', ''),
         )
 
         # devuelve la respuesta con el objeto Usuario creado
