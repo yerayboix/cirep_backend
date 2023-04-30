@@ -48,10 +48,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
         if user is None or not user.check_password(raw_password=password):
             return Response({'error': 'Credenciales no validos'}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.get_serializer(user)
+        headers = self.get_success_headers(serializer.data)
 
         token = services.create_token(user_id=user.id)
 
-        return Response(data={"token": token})
+        response = Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        response.data['token'] = token
+
+        return response
 
     @action(detail=True, methods=['post'])
     def change_password(self, request, pk=None):
