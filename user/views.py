@@ -25,15 +25,15 @@ class UserViewSet(viewsets.ModelViewSet):
             first_name=data.get('first_name', ''),
             last_name=data.get('last_name', ''),
             phone_number=data.get('phone_number', ''),
-            city=data.get('city', ''),
-            is_staff=data.get('is_staff')
+            city=data.get('city', '')
         )
 
         # devuelve la respuesta con el objeto Usuario creado
         usuario.set_password(data['password'])
         try:
             usuario.save()
-        except:
+        except Exception as e:
+            print(e)
             return Response({'error': 'Usuario ya registrado'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = self.get_serializer(usuario)
         headers = self.get_success_headers(serializer.data)
