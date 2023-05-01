@@ -66,6 +66,13 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
         data = serializers.serialize('json', reports_to_send)
         return HttpResponse(data, content_type='application/json')
 
+    @action(methods=['get'], detail=True, url_path='get-reports-by-type')
+    def get_reports_by_state(self, request):
+        report_state = request.data.get('report_state', '')
+        reports = Incidencia.objects.filter(state=report_state)
+        data = serializers.serialize('json', reports)
+        return HttpResponse(data, content_type='application/json')
+
     @action(methods=['post'], detail=True, url_path='create-report')
     def create_report(self, request):
         cua = CustomUserAuthentication()
