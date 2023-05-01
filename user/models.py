@@ -57,57 +57,6 @@ class UserManager(auth_models.BaseUserManager):
 
         return user
 
-class CiudadesEspanolas(Enum):
-    ALBACETE = "Albacete"
-    ALICANTE = "Alicante"
-    ALMERIA = "Almería"
-    AVILA = "Ávila"
-    BADAJOZ = "Badajoz"
-    BARCELONA = "Barcelona"
-    BURGOS = "Burgos"
-    CACERES = "Cáceres"
-    CADIZ = "Cádiz"
-    CASTELLON_DE_LA_PLANA = "Castellón de la Plana"
-    CIUDAD_REAL = "Ciudad Real"
-    CORDOBA = "Córdoba"
-    CUENCA = "Cuenca"
-    GERONA = "Gerona"
-    GRANADA = "Granada"
-    GUADALAJARA = "Guadalajara"
-    HUELVA = "Huelva"
-    HUESCA = "Huesca"
-    JAEN = "Jaén"
-    LEON = "León"
-    LERIDA = "Lérida"
-    LOGROÑO = "Logroño"
-    LUGO = "Lugo"
-    MADRID = "Madrid"
-    MALAGA = "Málaga"
-    MURCIA = "Murcia"
-    ORENSE = "Orense"
-    OVIEDO = "Oviedo"
-    PALENCIA = "Palencia"
-    PALMA_DE_MALLORCA = "Palma de Mallorca"
-    PAMPLONA = "Pamplona"
-    PONTEVEDRA = "Pontevedra"
-    SALAMANCA = "Salamanca"
-    SAN_SEBASTIAN = "San Sebastián"
-    SANTA_CRUZ_DE_TENERIFE = "Santa Cruz de Tenerife"
-    SANTANDER = "Santander"
-    SEGOVIA = "Segovia"
-    SEVILLA = "Sevilla"
-    SORIA = "Soria"
-    TARRAGONA = "Tarragona"
-    TERUEL = "Teruel"
-    TOLEDO = "Toledo"
-    VALENCIA = "Valencia"
-    VALLADOLID = "Valladolid"
-    VITORIA_GASTEIZ = "Vitoria-Gasteiz"
-    ZAMORA = "Zamora"
-    ZARAGOZA = "Zaragoza"
-    CEUTA = "Ceuta"
-    MELILLA = "Melilla"
-    LAS_PALMAS_DE_GRAN_CANARIA = "Las Palmas de Gran Canaria"
 
 class User(auth_models.AbstractUser):
     first_name = models.CharField(verbose_name="First Name", max_length=255)
@@ -116,7 +65,7 @@ class User(auth_models.AbstractUser):
     phone_number = models.CharField(verbose_name="Phone number",
                                     validators=[RegexValidator('^\d{9}$', message='incorrect format of phone number')],
                                     max_length=9)
-    city = models.CharField(verbose_name="City", max_length=255, choices= [(tag.name, tag.value) for tag in CiudadesEspanolas])
+    city = models.CharField(verbose_name="City", max_length=255)
     password = models.CharField(max_length=255)
     username = None
 
