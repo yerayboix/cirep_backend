@@ -1,0 +1,61 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+{% block title %}Usuarios{% endblock %}
+{% block panel_content %}
+
+    <div class="card shadow border-0 bg-white mt-5 mb-5">
+        <div class="card-header d-flex justify-content-between align-items-center shadow"
+             style="background-color: #6096B4!important;">
+            <h1 class="m-3 text-white">Listado de Usuarios</h1>
+            <div>
+                <a class="btn btn-light ml-2 mb-1 shadow" href="" data-toggle="tooltip"
+                   data-placement="bottom" title="Agregar Usuario">
+                    <span class="material-icons" style="vertical-align: bottom; color: #00a1ca">person_add</span>
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <!--Error message if it exists-->
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <div class="alert alert-info">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <div class="table-responsive">
+                <table id="tableUser" class="hover order-column row-border stripe text-center">
+                    <thead class="bg-primary text-light">
+                    <tr style="background-color: #6096B4">
+                        <th style="text-align: center">Email</th>
+                        <th style="text-align: center">Estado</th>
+                        <th style="text-align: center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.email }}</td>
+                            <td>{% if user.is_active %}Activo{% else %}Inactivo{% endif %}</td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Iniciar Sesion{% endblock %}
+{% block content %}
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            margin-top: auto;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: auto;
+            line-height: normal; /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        label i {
+            font-size: 1.2em;
+            margin-right: 0.5em;
+
+        }
+    </style>
+    <div class="ml-5 mr-5 mb-5 mt-5 centered align-middle" style="justify-content: center; display: flex; vertical-align: center; margin-top: auto; margin-bottom: auto">
+        <div class="card shadow border-0 bg-white mt-5 mb-5" style="width: fit-content">
+            <div class="card-header d-flex text-center align-items-center shadow"
+                 style="background-color: #00a1ca!important;">
+                <h2 class="m-3 text-white">CIREP Administración</h2>
+            </div>
+            <div class="card-body">
+                <!--Error message if it exists-->
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                            <div class="alert alert-info">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <div class="row" style="justify-content: center">
+                    <form method="POST" class="mt-1">
+                        {% csrf_token %}
+                        <div class="mb-4" style="display: flex; align-items: center;">
+                            <label for="form2Example1"><i class="material-symbols-outlined"
+                                                          style="vertical-align: bottom;">person</i></label><input
+                                type="text" id="form2Example1"
+                                class="form-control" name="username"
+                                placeholder="Usuario" required/>
+                        </div>
+                        <div class="mb-4" style="display: flex; align-items: center;">
+                            <label for="form2Example2"><i class="material-symbols-outlined">key</i></label><input
+                                type="password" id="form2Example2" class="form-control" name="password"
+                                placeholder="Contraseña" required/>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mb-4" style="justify-content: center">Iniciar
+                                Sesión
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

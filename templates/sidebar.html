@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+    {% load static %}
+
+    <style>
+        body {
+            font-family: "Tahoma", sans-serif;
+            background-color: #EEE9DA;
+            min-height: 100vh;
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+        .sidebar a:hover {
+            color: #047cfc;
+
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 40px;
+            right: 25px;
+            font-size: 15px;
+            margin-left: 50px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+            .sidebar a {
+                font-size: 18px;
+            }
+        }
+
+        .link {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            gap: 0;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            margin-top: auto;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: auto;
+            line-height: normal; /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+    </style>
+    <body>
+    <nav class="navbar shadow navbar-expand-lg navbar-light bg-light" style="background-color: #6096B4!important;">
+        <span class="navbar-brand" style="color: white; padding-left: 10px">Bienvenido/a {{ user.first_name }}</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" style="background-color: white" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="color: white"></span>
+        </button>
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <span style="color:#6096B4;">Acciones</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" style="color: #6096B4" href="#">Usuarios</a></li>
+                            <li><a class="dropdown-item" style="color: #6096B4" href="#">Incidencias</a></li>
+                            <li><a class="dropdown-item" style="color: #6096B4" href="#">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </body>
+    <main style="margin-top: 4px; display: flex; padding-left: 0!important; margin-bottom: 60px">
+        <div class="container" style="margin-left: auto">
+            {% block panel_content %}
+            {% endblock %}
+        </div>
+    </main>
+{% endblock %}
