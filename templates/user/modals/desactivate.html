@@ -1,4 +1,4 @@
-<div class="modal fade" id="desactivateUserModal{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="desactivateUserModal{{ us.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -6,13 +6,13 @@
                 <h5 class="modal-title" id="exampleModalLabel">Desactivar Usuario</h5>
             </div>
             <div class="modal-body">
-                <p><strong class="text-danger">Se desactivará al usuario: </strong>{{ user.email }}</p>
+                <p><strong>Se desactivará al usuario: </strong>{{ us.email }}</p>
 
             </div>
             <div class="modal-footer">
-                <form action="{% url 'desactivate_user' user.id %}">
+                <form action="{% url 'desactivate_user' us.id %}">
                     {% csrf_token %}
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-danger">Desactivar</button>
                 </form>
             </div>

@@ -1,17 +1,17 @@
-<div class="modal fade" id="activateUserModal{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="activateUserModal{{ us.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-light">
+            <div class="modal-header text-light" style="background-color: #6096B4!important;">
                 <h5 class="modal-title" id="exampleModalLabel">Activar Usuario</h5>
             </div>
             <div class="modal-body">
-                <p><strong class="text-primary">Se activará al usuario: </strong>{{ user.email }}</p>
-                <form action="{% url 'activate_user' user.id %}">
+                <p><strong style="color: #6096B4!important;">Se activará al usuario: </strong>{{ user.email }}</p>
+                <form action="{% url 'activate_user' us.id %}">
                     {% csrf_token %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-warning">Activar</button>
                 </form>
             </div>
