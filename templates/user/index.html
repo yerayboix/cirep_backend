@@ -10,7 +10,7 @@
             <div>
                 <a class="btn btn-light ml-2 mb-1 shadow" href="" data-toggle="tooltip"
                    data-placement="bottom" title="Agregar Usuario">
-                    <span class="material-icons" style="vertical-align: bottom; color: #00a1ca">person_add</span>
+                    <span class="material-icons" style="vertical-align: bottom; color: #6096B4">person_add</span>
                 </a>
             </div>
         </div>
@@ -50,12 +50,52 @@
                         <tr>
                             <td>{{ user.email }}</td>
                             <td>{% if user.is_active %}Activo{% else %}Inactivo{% endif %}</td>
-                            <td></td>
+                            <td>
+                                {% if user.is_active %}
+                                    <button class="btn btn-light shadow-sm" data-toggle="modal"
+                                            data-bs-target="#desactivateUserModal{{ user.id }}">
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-light shadow-sm" data-toggle="modal"
+                                            data-target="#activateUserModal{{ user.id }}"><span
+                                            data-toggle="tooltip"
+                                            data-placement="bottom" title="Activar" class="material-symbols-outlined"
+                                            style="vertical-align: bottom; color: #007bff;">lock_open</span>
+                                    </button>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-light shadow-sm" data-bs-toggle="modal" data-bs-target="#desactivateUserModal1">
+                    <span data-toggle="tooltip" data-placement="bottom" title="Desactivar" class="material-icons"
+                            style="vertical-align: bottom; color: #dc3545">lock_person</span>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    {% include 'user/modals/desactivate.html' %}
 {% endblock %}

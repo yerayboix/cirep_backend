@@ -82,8 +82,8 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'detail': 'Debe proporcionar una contraseña.'}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['post'], url_path='modify-profile')
-    def modify_profile(self, request, pk=None):
-        user = self.get_object()
+    def modify_profile(self, request, email):
+        user = User.objects.get(email=email)
         cua = CustomUserAuthentication()
 
         request_user = cua.authenticate(request)
