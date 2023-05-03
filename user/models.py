@@ -34,7 +34,7 @@ class UserManager(auth_models.BaseUserManager):
         user.city = city
         user.set_password(password)
         user.is_active = True
-        user.is_staff = is_staff
+        user.is_staff = False
         user.is_superuser = is_superuser
         user.save()
 
@@ -64,7 +64,7 @@ class User(auth_models.AbstractUser):
     email = models.EmailField(verbose_name="Email", max_length=255, unique=True)
     phone_number = models.CharField(verbose_name="Phone number",
                                     validators=[RegexValidator('^\d{9}$', message='incorrect format of phone number')],
-                                    max_length=9)
+                                    max_length=9, unique=True)
     city = models.CharField(verbose_name="City", max_length=255)
     password = models.CharField(max_length=255)
     username = None

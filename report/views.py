@@ -1,9 +1,13 @@
+from typing import List
+
+from django.db.models import QuerySet
 from django.http import HttpResponse
 from rest_framework import serializers, viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.core import serializers
 
+from cirep.helpers.functions import calculate_distance_between_coordinates
 from report.models import Incidencia
 from report.serializer import IncidenciaSerializer
 from user.authentication import CustomUserAuthentication
@@ -33,7 +37,8 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
 
     @action(methods=['get'], detail=True, url_path='get-reports')
     def get_all_reports(self, request):
-        reports = Incidencia.objects.all()
+        # Vamos a obtener las incidencias activas
+        reports = Incidencia.objects.exclude(state='D').exclude(state='A')
         data = serializers.serialize('json', reports)
         return HttpResponse(data, content_type='application/json')
 
@@ -44,6 +49,27 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
 
         user = User.objects.filter(email=request_user.email).first()
         reports = Incidencia.objects.filter(author=user.email)
+        data = serializers.serialize('json', reports)
+        return HttpResponse(data, content_type='application/json')
+
+    @action(methods=['get'], detail=True, url_path='get-nearby-reports')
+    def get_nearby_reports(self, request):
+        reports = Incidencia.objects.exclude(state='D').exclude(state='A')
+        user_latitude = float(request.data.get('latitude'))
+        user_longitude = float(request.data.get('longitude'))
+        distance_range = 100    # Distance in meters (configurable)
+        reports_to_send = []
+        for report in reports:
+            if calculate_distance_between_coordinates(user_latitude, user_longitude, report.latitude, report.longitude) <= distance_range:
+                reports_to_send.append(report)
+
+        data = serializers.serialize('json', reports_to_send)
+        return HttpResponse(data, content_type='application/json')
+
+    @action(methods=['get'], detail=True, url_path='get-reports-by-type')
+    def get_reports_by_state(self, request):
+        report_state = request.data.get('report_state', '')
+        reports = Incidencia.objects.filter(state=report_state)
         data = serializers.serialize('json', reports)
         return HttpResponse(data, content_type='application/json')
 
@@ -70,3 +96,4 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
         except Exception as e:
             print(e)
             return Response({'error': 'Error al guardar incidencia'}, status=status.HTTP_400_BAD_REQUEST)
+

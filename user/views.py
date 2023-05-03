@@ -25,15 +25,15 @@ class UserViewSet(viewsets.ModelViewSet):
             first_name=data.get('first_name', ''),
             last_name=data.get('last_name', ''),
             phone_number=data.get('phone_number', ''),
-            city=data.get('city', ''),
-            is_staff=data.get('is_staff')
+            city=data.get('city', '')
         )
 
         # devuelve la respuesta con el objeto Usuario creado
         usuario.set_password(data['password'])
         try:
             usuario.save()
-        except:
+        except Exception as e:
+            print(e)
             return Response({'error': 'Usuario ya registrado'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = self.get_serializer(usuario)
         headers = self.get_success_headers(serializer.data)
@@ -80,3 +80,37 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'detail': 'Contraseña actualizada.'})
         else:
             return Response({'detail': 'Debe proporcionar una contraseña.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['post'], url_path='modify-profile')
+    def modify_profile(self, request, pk=None):
+        user = self.get_object()
+        cua = CustomUserAuthentication()
+
+        request_user = cua.authenticate(request)
+        if request_user is None:
+            return Response({'error': 'Necesitas iniciar sesión'},
+                            status=status.HTTP_401_UNAUTHORIZED)
+        # verificamos que el usuario que quiere modificar su perfil sea el mismo que al que se le quiere cambiar
+        if request_user.id != user.id:
+            return Response({'error': 'No tienes permisos para modificar este usuario.'},
+                            status=status.HTTP_401_UNAUTHORIZED)
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        phone_number = request.data.get('phone_number')
+        city = request.data.get('city')
+
+        if first_name:
+            user.first_name = first_name
+        if last_name:
+            user.last_name = last_name
+        if phone_number:
+            user.phone_number = phone_number
+        if city:
+            user.city = city
+
+        try:
+            user.save()
+            return Response({'detail': 'Perfil actualizado.'})
+        except Exception as e:
+            print(e)
+            return Response({'error': 'Error al modificar perfil.'}, status=status.HTTP_400_BAD_REQUEST)
