@@ -7,4 +7,5 @@ urlpatterns = [
     path('<pk>/change_password/', UserViewSet.as_view({'post': 'change_password'}), name='user-change-password'),
     path('create/', UserViewSet.as_view({'post': 'create'}), name='user-create'),
     path('login/', UserViewSet.as_view({'post': 'login'}), name='user-login'),
+    path('modificar_perfil/<pk>', UserViewSet.as_view({'post': 'modify_profile'}), name='modify_profile'),
 ]
