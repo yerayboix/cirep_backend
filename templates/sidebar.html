@@ -66,8 +66,8 @@
                             <span style="color:#6096B4;">Acciones</span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" style="color: #6096B4" href="#">Usuarios</a></li>
-                            <li><a class="dropdown-item" style="color: #6096B4" href="#">Incidencias</a></li>
+                            <li><a class="dropdown-item" style="color: #6096B4" href="{% url 'list_users' %}">Usuarios</a></li>
+                            <li><a class="dropdown-item" style="color: #6096B4" href="{% url 'list_reports' %}">Incidencias</a></li>
                             <li><a class="dropdown-item" style="color: #6096B4" href="{% url 'logout_view' %}">Cerrar sesión</a></li>
                         </ul>
                     </li>

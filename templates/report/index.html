@@ -1,0 +1,62 @@
+{% extends 'sidebar.html' %}
+{% load static %}
+{% block title %}Incidencias{% endblock %}
+{% block panel_content %}
+
+    <div class="card shadow border-0 bg-white mt-5 mb-5">
+        <div class="card-header d-flex justify-content-between align-items-center shadow"
+             style="background-color: #6096B4!important;">
+            <h1 class="m-3 text-white">Listado de Incidencias</h1>
+            <div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!--Error message if it exists-->
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <div class="alert alert-info">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <div class="table-responsive">
+                <table id="tableUser" class="hover order-column row-border stripe text-center">
+                    <thead class="bg-primary text-light">
+                    <tr style="background-color: #6096B4">
+                        <th style="text-align: center">Imagen</th>
+                        <th style="text-align: center">ID</th>
+                        <th style="text-align: center">Estado</th>
+                        <th style="text-align: center">Tipo</th>
+                        <th style="text-align: center">Fecha</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for report in reports %}
+                        <tr>
+                            <td>{{ report.image }}</td>
+                            <td>{{ report.id }}</td>
+                            <td>{{ report.state }}</td>
+                            <td>{{ report.report_type }}</td>
+                            <td>{{ report.report_date }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
