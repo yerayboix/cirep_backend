@@ -72,6 +72,11 @@
                                 Sesión
                             </button>
                         </div>
+                        <div class="text-center">
+                            {% if form.errors %}
+                                <span class="text-danger">Credenciales incorrectas</span>
+                            {% endif %}
+                        </div>
                     </form>
                 </div>
             </div>
