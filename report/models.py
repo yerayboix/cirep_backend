@@ -14,7 +14,6 @@ class Incidencia(models.Model):
         ('PR', 'Pendiente de revisión'),
         ('D', 'Descartada')
     )
-    title = models.CharField(max_length=255)
     report_date = models.DateField(null=True)
     description = models.TextField()
     image = models.CharField(max_length=255)

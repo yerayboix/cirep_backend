@@ -23,3 +23,8 @@ def calculate_distance_between_coordinates(lat1, lon1, lat2, lon2):
     print('Distancia en km entre [{0}, {1}] y [{2}, {3}] = {4}'.format(lat1, lon1, lat2, lon2, distancia_km))
     print('Distancia en m entre [{0}, {1}] y [{2}, {3}] = {4}'.format(lat1, lon1, lat2, lon2, distancia_m))
     return distancia_m
+
+
+def get_by_pk(model, pk):
+    object = model.objects.get(pk=pk)
+    return object

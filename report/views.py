@@ -79,7 +79,6 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
         request_user = cua.authenticate(request)
 
         new_report = Incidencia(
-            title=request.data['title'],
             report_date=request.data['report_date'],
             description=request.data['description'],
             image=request.data['image'],
