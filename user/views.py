@@ -98,6 +98,7 @@ class UserViewSet(viewsets.ModelViewSet):
         last_name = request.data.get('last_name')
         phone_number = request.data.get('phone_number')
         city = request.data.get('city')
+        password = request.data.get('password')
 
         if first_name:
             user.first_name = first_name
@@ -107,6 +108,9 @@ class UserViewSet(viewsets.ModelViewSet):
             user.phone_number = phone_number
         if city:
             user.city = city
+        if password:
+            user.set_password(password)
+            user.save()
 
         try:
             user.save()
