@@ -110,7 +110,6 @@ class UserViewSet(viewsets.ModelViewSet):
             user.city = city
         if password:
             user.set_password(password)
-            user.save()
 
         try:
             user.save()
