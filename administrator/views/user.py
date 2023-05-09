@@ -12,10 +12,12 @@ def list_users(request):
     context = {'users': users}
     return render(request, 'user/index.html', context)
 
+
 @login_required
 def logout_view(request):
     logout(request)
     return redirect('login')
+
 
 @login_required
 def desactivate_user(request, pk):

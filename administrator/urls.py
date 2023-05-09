@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from administrator.views.reports import list_reports
+from administrator.views.reports import list_reports, list_user_reports
 from administrator.views.user import list_users, logout_view, activate_user, desactivate_user
 
 urlpatterns = [
@@ -12,4 +12,5 @@ urlpatterns = [
     path('usuarios/desactivar/<pk>', desactivate_user, name='desactivate_user'),
     # Incidencias
     path('incidencias/listado', list_reports, name='list_reports'),
+    path('incidencias/listado/usuario/<pk>', list_user_reports, name='list_user_reports'),
 ]

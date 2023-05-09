@@ -42,6 +42,7 @@
                     <tr style="background-color: #6096B4">
                         <th style="text-align: center">Email</th>
                         <th style="text-align: center">Estado</th>
+                        <th style="text-align: center">Ciudad</th>
                         <th style="text-align: center">Acciones</th>
                     </tr>
                     </thead>
@@ -50,18 +51,29 @@
                         <tr>
                             <td>{{ us.email }}</td>
                             <td>{% if us.is_active %}Activo{% else %}Inactivo{% endif %}</td>
+                            <td>{{ us.city }}</td>
                             <td>
                                 {% if us.is_active %}
-                                    <button type="button" class="btn btn-light shadow-sm" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-light ml-2 mb-1 shadow-sm"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#desactivateUserModal{{ us.id }}">
-                                        <span data-toggle="tooltip" data-placement="bottom" title="Desactivar" class="material-icons" style="vertical-align: bottom; color: #dc3545">lock_person</span>
+                                        <span data-toggle="tooltip" data-placement="bottom" title="Desactivar"
+                                              class="material-icons" style="vertical-align: bottom; color: #dc3545">lock_person</span>
                                     </button>
                                 {% else %}
-                                    <button type="button" class="btn btn-light shadow-sm" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-light ml-2 mb-1 shadow-sm"
+                                            data-bs-toggle="modal"
                                             data-bs-target="#activateUserModal{{ us.id }}">
-                                        <span data-toggle="tooltip" data-placement="bottom" title="Activar" class="material-symbols-outlined" style="vertical-align: bottom; color: #007bff">lock_open</span>
+                                        <span data-toggle="tooltip" data-placement="bottom" title="Activar"
+                                              class="material-symbols-outlined"
+                                              style="vertical-align: bottom; color: #007bff">lock_open</span>
                                     </button>
                                 {% endif %}
+                                <a class="btn btn-light ml-2 mb-1 shadow-sm"
+                                   href="{% url 'list_user_reports' pk=us.id %}" data-toggle="tooltip"
+                                   data-placement="bottom" title="Ver sus incidencias">
+                                    <span class="material-symbols-outlined"
+                                          style="vertical-align: bottom; color: #6096B4">problem</span></a>
                             </td>
                         </tr>
                         {% include 'user/modals/desactivate.html' %}
