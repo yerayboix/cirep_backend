@@ -1,0 +1,91 @@
+{% extends 'sidebar.html' %}
+{% block title %}Detalles Usuario{% endblock %}
+{% block panel_content %}
+    <div id="detailUser">
+        <div class="card shadow border-0 bg-white mt-5 mb-5">
+            <div class="card-header d-flex justify-content-between align-items-center shadow"
+                 style="background-color: #6096B4!important;">
+                <h1 class="m-3 text-white">Detalles: <span>{{ us.first_name }}</span></h1>
+                <div>
+                    <a class="btn btn-light ml-2 mb-1 shadow" href="{% url 'list_users' %}" data-toggle="tooltip"
+                       data-placement="bottom" title="Volver"><span
+                            class="material-icons"
+                            style="vertical-align: bottom; color: #00a1ca">arrow_back</span></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <!--Error message if it exists-->
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                            <div class="alert alert-info">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-8 mt-3">
+                        <h2>Datos personales:</h2>
+                    </div>
+                </div>
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-4 mt-3"><label for="first_name">Nombre:</label>
+                        <input type="text" class="form-control" name="first_name"
+                               value="{{ us.first_name }}"
+                               readonly>
+                    </div>
+                    <div class="col-md-4 mt-3"><label for="last_name">Apellidos:</label>
+                        <input type="text" class="form-control" name="last_name"
+                               value="{{ us.last_name }}"
+                               readonly>
+                    </div>
+                </div>
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-4 mt-3"><label for="email">Correo electrónico:</label>
+                        <input type="text" class="form-control" name="email"
+                               value="{{ us.email }}"
+                               readonly>
+                    </div>
+                    <div class="col-md-4 mt-3"><label for="phone_number">Número de teléfono:</label>
+                        <input type="text" class="form-control" name="phone_number"
+                               value="{{ us.phone_number }}"
+                               readonly>
+                    </div>
+                </div>
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-4 mt-3"><label for="city">Ciudad:</label>
+                        <input type="text" class="form-control" name="city"
+                               value="{{ us.city }}"
+                               readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#group_name').change(function () {
+                if ($(this).val() === 'M' || $(this).val() === 'R') {
+                    $('#responsible').show();
+                } else {
+                    $('#responsible').hide();
+                }
+            }).trigger('change');
+        });
+
+    </script>
+
+{% endblock %}

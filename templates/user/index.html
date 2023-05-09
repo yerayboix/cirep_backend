@@ -8,10 +8,6 @@
              style="background-color: #6096B4!important;">
             <h1 class="m-3 text-white">Listado de Usuarios</h1>
             <div>
-                <a class="btn btn-light ml-2 mb-1 shadow" href="" data-toggle="tooltip"
-                   data-placement="bottom" title="Agregar Usuario">
-                    <span class="material-icons" style="vertical-align: bottom; color: #6096B4">person_add</span>
-                </a>
             </div>
         </div>
         <div class="card-body">
@@ -53,6 +49,11 @@
                             <td>{% if us.is_active %}Activo{% else %}Inactivo{% endif %}</td>
                             <td>{{ us.city }}</td>
                             <td>
+                                <a class="btn btn-light ml-2 mb-1 shadow-sm"
+                                   href="{% url 'user_details' pk=us.id %}" data-toggle="tooltip"
+                                   data-placement="bottom" title="Detalles">
+                                    <span class="material-symbols-outlined"
+                                          style="vertical-align: bottom; color: #6096B4">info</span></a>
                                 {% if us.is_active %}
                                     <button type="button" class="btn btn-light ml-2 mb-1 shadow-sm"
                                             data-bs-toggle="modal"

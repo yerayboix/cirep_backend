@@ -24,7 +24,7 @@ class Incidencia(models.Model):
     report_type = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     class Meta:
         verbose_name = 'Incidencia'

@@ -33,3 +33,10 @@ def activate_user(request, pk):
     user.is_active = True
     user.save()
     return redirect('/administrador/usuarios/listado')
+
+
+@login_required
+def user_details(request, pk):
+    us = get_by_pk(User, pk)
+    context = {'us': us}
+    return render(request, 'user/profile.html', context)

@@ -66,9 +66,11 @@
                             <span style="color:#6096B4;">Acciones</span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" style="color: #6096B4" href="{% url 'list_users' %}">Usuarios</a></li>
-                            <li><a class="dropdown-item" style="color: #6096B4" href="{% url 'list_reports' %}">Incidencias</a></li>
-                            <li><a class="dropdown-item" style="color: #6096B4" href="{% url 'logout_view' %}">Cerrar sesión</a></li>
+                            <li><a class="link dropdown-item" href="{% url 'list_users' %}" {% if '/administrador/usuarios/listado' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
+                           {% else %}style="color:#00a1ca;"{% endif %}>Usuarios</a></li>
+                            <li><a class="link dropdown-item" href="{% url 'list_reports' %}" {% if '/administrador/incidencias/listado' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
+                           {% else %}style="color:#00a1ca;"{% endif %}>Incidencias</a></li>
+                            <li><a class="link dropdown-item" style="color: #6096B4" href="{% url 'logout_view' %}">Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
