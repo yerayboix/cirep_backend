@@ -1,7 +1,6 @@
 from django.db import migrations
 
 
-
 def load_data(apps, schema_editor):
     TipoIncidencia = apps.get_model('report', 'TipoIncidencia')
     options = [

@@ -86,10 +86,10 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
             latitude=request.data['latitude'],
             longitude=request.data['longitude'],
             author=request_user.email,
-            report_type=TipoIncidencia.objects.get(type=request.data['report_type'])
         )
 
         try:
+            new_report.report_type = TipoIncidencia.objects.get(type=request.data['report_type'])
             new_report.save()
             return Response({'report': IncidenciaSerializer(new_report).data})
         except Exception as e:
