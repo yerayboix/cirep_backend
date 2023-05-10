@@ -6,9 +6,9 @@
         <div class="card shadow border-0 bg-white mt-5 mb-5">
             <div class="card-header d-flex justify-content-between align-items-center shadow"
                  style="background-color: #6096B4!important;">
-                <h1 class="m-3 text-white">Detalles: <span>{{ us.first_name }}</span></h1>
+                <h1 class="m-3 text-white">Detalles incidencia ID: {{ report.id }}</h1>
                 <div>
-                    <a class="btn btn-light ml-2 mb-1 shadow" href="{% url 'list_reports' %}" data-toggle="tooltip"
+                    <a class="btn btn-light ml-2 mb-1 shadow" href="{{ url }}" data-toggle="tooltip"
                        data-placement="bottom" title="Volver"><span
                             class="material-icons"
                             style="vertical-align: bottom; color: #00a1ca">arrow_back</span></a>

@@ -47,6 +47,7 @@
                         <th style="text-align: center">Estado</th>
                         <th style="text-align: center">Tipo</th>
                         <th style="text-align: center">Fecha</th>
+                        <th style="text-align: center">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,6 +58,11 @@
                             <td>{{ report.state }}</td>
                             <td>{{ report.report_type }}</td>
                             <td>{{ report.report_date }}</td>
+                            <td><a class="btn btn-light ml-2 mb-1 shadow-sm"
+                                   href="{% url 'report_detail' pk=report.id %}" data-toggle="tooltip"
+                                   data-placement="bottom" title="Detalles">
+                                    <span class="material-symbols-outlined"
+                                          style="vertical-align: bottom; color: #6096B4">info</span></a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

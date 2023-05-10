@@ -26,7 +26,8 @@ def list_user_reports(request, pk):
 @login_required
 def report_detail(request, pk):
     report = get_by_pk(Incidencia, pk)
-    context = {'report': report, 'd_s_c': Incidencia.d_s_c}
+    url = request.META['HTTP_REFERER']
+    context = {'report': report, 'd_s_c': Incidencia.d_s_c, 'url': url}
     return render(request, 'report/detail.html', context)
 
 

@@ -35,6 +35,12 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
         instance.save()
         return Response(self.get_serializer(instance).data)
 
+    @action(methods='get', detail=TipoIncidencia, url_path='get-report')
+    def get_report(self, request, pk=None):
+        incidencia = self.get_object()
+        return Response(self.get_serializer(incidencia).data)
+
+
     @action(methods=['get'], detail=True, url_path='get-reports')
     def get_all_reports(self, request):
         # Vamos a obtener las incidencias activas

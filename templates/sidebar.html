@@ -54,7 +54,8 @@
     <nav class="navbar shadow navbar-expand-lg navbar-light bg-light" style="background-color: #6096B4!important;">
         <span class="navbar-brand" style="color: white; padding-left: 10px">Bienvenido/a {{ user.first_name }}</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" style="background-color: white" aria-label="Toggle navigation">
+                aria-controls="navbarNavDropdown" aria-expanded="false" style="background-color: white"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="color: white"></span>
         </button>
         <div class="container-fluid">
@@ -62,15 +63,17 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button class="btn btn-light dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
+                                aria-expanded="false">
                             <span style="color:#6096B4;">Acciones</span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="link dropdown-item" href="{% url 'list_users' %}" {% if '/administrador/usuarios/listado' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
-                           {% else %}style="color:#00a1ca;"{% endif %}>Usuarios</a></li>
-                            <li><a class="link dropdown-item" href="{% url 'list_reports' %}" {% if '/administrador/incidencias/listado' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
-                           {% else %}style="color:#00a1ca;"{% endif %}>Incidencias</a></li>
-                            <li><a class="link dropdown-item" style="color: #6096B4" href="{% url 'logout_view' %}">Cerrar sesión</a></li>
+                            <li><a class="link dropdown-item" href="{% url 'list_users' %}"
+                                   {% if '/administrador/usuarios/listado' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
+                                   {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined" style="vertical-align: bottom; color: #6096B4">group</i><span>&nbsp;&nbsp;Usuarios</span></a></li>
+                            <li><a class="link dropdown-item" href="{% url 'list_reports' %}"
+                                   {% if '/administrador/incidencias/listado' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
+                                   {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined" style="vertical-align: bottom; color: #6096B4">problem</i><span>&nbsp;&nbsp;Incidencias</span></a></li>
+                            <li><a class="link dropdown-item" style="color: #6096B4" href="{% url 'logout_view' %}"><i class="material-symbols-outlined" style="vertical-align: bottom; color: #6096B4">logout</i><span>&nbsp;&nbsp;Cerrar sesión</span></a></li>
                         </ul>
                     </li>
                 </ul>
