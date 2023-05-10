@@ -28,3 +28,4 @@ def calculate_distance_between_coordinates(lat1, lon1, lat2, lon2):
 def get_by_pk(model, pk):
     object = model.objects.get(pk=pk)
     return object
+

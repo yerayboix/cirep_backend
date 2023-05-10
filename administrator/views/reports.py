@@ -20,3 +20,10 @@ def list_user_reports(request, pk):
     reports = Incidencia.objects.filter(author=us.email)
     context = {'reports': reports, 'us': us}
     return render(request, 'report/user_reports.html', context)
+
+
+@login_required
+def report_detail(request, pk):
+    report = get_by_pk(Incidencia, pk)
+    context = {'report': report, 'd_s_c': Incidencia.d_s_c}
+    return render(request, 'report/detail.html', context)
