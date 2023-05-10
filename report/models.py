@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 
 class TipoIncidencia(models.Model):
-    type = models.CharField(max_length=255, null=False, unique=True)
+    type = models.CharField(primary_key=True, max_length=255)
 
     def __str__(self):
         return str(self.type)

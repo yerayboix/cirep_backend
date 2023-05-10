@@ -1,6 +1,8 @@
 from django.db import migrations
+from django.db.transaction import atomic
 
 
+@atomic
 def load_data(apps, schema_editor):
     TipoIncidencia = apps.get_model('report', 'TipoIncidencia')
     options = [
@@ -20,7 +22,7 @@ def load_data(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('report', '0003_alter_incidencia_report_type')
+        ('report', '0001_initial')
     ]
 
     operations = [

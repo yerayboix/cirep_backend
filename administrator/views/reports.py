@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from cirep.helpers.functions import get_by_pk
-from report.models import Incidencia, TipoIncidencia
+from report.models import Incidencia, TipoIncidencia, IncidenciaPorNotificar
 from user.models import User
 
 
@@ -42,6 +42,11 @@ def report_update(request, pk):
         try:
             report.report_type = TipoIncidencia.objects.get(type=report_type)
             report.state = state
+            if report_type != report.report_type:
+                new_incidencia_por_notificar = IncidenciaPorNotificar(
+                    incidencia=report
+                )
+                new_incidencia_por_notificar.save()
             report.save()
         except Exception as e:
             print(e)
