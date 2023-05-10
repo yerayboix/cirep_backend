@@ -12,30 +12,36 @@
                        data-placement="bottom" title="Volver"><span
                             class="material-icons"
                             style="vertical-align: bottom; color: #00a1ca">arrow_back</span></a>
+                    <a class="btn btn-warning ml-2 mb-1 shadow"
+                       href="{% url 'report_update' pk=report.id %}"
+                       data-toggle="tooltip"
+                       data-placement="bottom" title="Editar"><span
+                            class="material-icons"
+                            style="vertical-align: bottom;">settings</span></a>
                 </div>
             </div>
             <div class="card-body">
                 <!--Error message if it exists-->
                 {% if messages %}
-                    {% for message in messages %}
-                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                            <div class="alert alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                {{ message }}
-                            </div>
-                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                            <div class="alert alert-success">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                {{ message }}
-                            </div>
-                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
-                            <div class="alert alert-info">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                {{ message }}
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+                        {% for message in messages %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    {{ message }}
+                                </div>
+                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    {{ message }}
+                                </div>
+                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 <div class="row" style="justify-content: center">
                     <div class="col-md-4 mt-3 text-center"><label for="state">Estado actual:</label>
                         <input class="form-control" type="text" name="state"
@@ -78,22 +84,12 @@
                     <div class="col-md-4 mt-3 text-center"><label for="report_type">Imagen:</label>
                     </div>
                 </div>
-
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-8 mt-3 text-center"><label for="description">Descripción:</label>
+                        <textarea type="text" class="form-control" name="description" disabled readonly>{{ report.description }}</textarea>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            $('#group_name').change(function () {
-                if ($(this).val() === 'M' || $(this).val() === 'R') {
-                    $('#responsible').show();
-                } else {
-                    $('#responsible').hide();
-                }
-            }).trigger('change');
-        });
-
-    </script>
-
 {% endblock %}

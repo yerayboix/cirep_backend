@@ -7,6 +7,17 @@ from rest_framework.response import Response
 # creamos el modelo con los atributos requeridos
 
 
+class TipoIncidencia(models.Model):
+    type = models.CharField(max_length=255, null=False, unique=True)
+
+    def __str__(self):
+        return str(self.type)
+
+    class Meta:
+        verbose_name = 'Tipo de incidencia'
+        verbose_name_plural = 'Tipos de incidencias'
+
+
 class Incidencia(models.Model):
     STATE_CHOICES = (
         ('P', 'En proceso'),
@@ -22,7 +33,7 @@ class Incidencia(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     author = models.CharField(max_length=255)
-    report_type = models.CharField(max_length=255)
+    report_type = models.ForeignKey(TipoIncidencia, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return str(self.id)
