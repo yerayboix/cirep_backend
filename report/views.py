@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from django.core import serializers
 
 from cirep.helpers.functions import calculate_distance_between_coordinates
-from report.models import Incidencia
+from report.models import Incidencia, TipoIncidencia
 from report.serializer import IncidenciaSerializer
 from user.authentication import CustomUserAuthentication
 from user.models import User
@@ -86,7 +86,7 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
             latitude=request.data['latitude'],
             longitude=request.data['longitude'],
             author=request_user.email,
-            report_type=request.data['report_type']
+            report_type=TipoIncidencia.objects.get(type=request.data['report_type'])
         )
 
         try:
