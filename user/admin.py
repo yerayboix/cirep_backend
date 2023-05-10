@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from report.models import Incidencia, TipoIncidencia
+from report.models import Incidencia, TipoIncidencia, IncidenciaPorNotificar
 from . import models
 
 
@@ -11,3 +11,4 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(models.User, UserAdmin)
 admin.site.register(Incidencia)
 admin.site.register(TipoIncidencia)
+admin.site.register(IncidenciaPorNotificar)
