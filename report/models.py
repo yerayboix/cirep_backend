@@ -42,3 +42,13 @@ class Incidencia(models.Model):
         verbose_name = 'Incidencia'
         verbose_name_plural = 'Incidencias'
 
+
+class IncidenciaPorNotificar(models.Model):
+    incidencia = models.ForeignKey(Incidencia, on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return str(self.id)
+
+    class Meta:
+        verbose_name = 'Incidencia por notificar'
+        verbose_name_plural = 'Incidencias por notificar'
