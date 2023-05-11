@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from django.core import serializers
 
 from cirep.helpers.functions import calculate_distance_between_coordinates
-from report.models import Incidencia, TipoIncidencia
+from report.models import Incidencia, TipoIncidencia, IncidenciaPorNotificar
 from report.serializer import IncidenciaSerializer
 from user.authentication import CustomUserAuthentication
 from user.models import User
@@ -102,3 +102,16 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
             print(e)
             return Response({'error': 'Error al guardar incidencia'}, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(methods=['get'], detail=TipoIncidencia, url_path='get-notifications-state')
+    def get_notifications_state(self, request):
+        cua = CustomUserAuthentication()
+        request_user = cua.authenticate(request)
+
+        user = User.objects.filter(email=request_user.email).first()
+        reports_to_notificate = IncidenciaPorNotificar.objects.filter(incidencia__author=user.email)
+        data = serializers.serialize('json', reports_to_notificate)
+
+        for report in reports_to_notificate:
+            report.delete()
+
+        return HttpResponse(data, content_type='application/json')
