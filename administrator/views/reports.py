@@ -40,13 +40,16 @@ def report_update(request, pk):
         report_type = request.POST['report_type']
 
         try:
+            if state != report.state:
+                try:
+                    new_incidencia_por_notificar = IncidenciaPorNotificar(
+                        incidencia=report
+                    )
+                    new_incidencia_por_notificar.save()
+                except Exception as e:
+                    print(e)
             report.report_type = TipoIncidencia.objects.get(type=report_type)
             report.state = state
-            if report_type != report.report_type:
-                new_incidencia_por_notificar = IncidenciaPorNotificar(
-                    incidencia=report
-                )
-                new_incidencia_por_notificar.save()
             report.save()
         except Exception as e:
             print(e)

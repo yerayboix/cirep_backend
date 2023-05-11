@@ -44,7 +44,7 @@ class Incidencia(models.Model):
 
 
 class IncidenciaPorNotificar(models.Model):
-    incidencia = models.ForeignKey(Incidencia, on_delete=models.CASCADE, null=False)
+    incidencia = models.ForeignKey(Incidencia, on_delete=models.CASCADE, null=False, unique=True)
 
     def __str__(self):
         return str(self.id)
