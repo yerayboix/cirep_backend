@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from report.models import Incidencia, TipoIncidencia, IncidenciaPorNotificar
+from report.models import Incidencia, TipoIncidencia, IncidenciaPorNotificar, IncidenciaDesacreditada
 from . import models
 
 
@@ -12,3 +12,4 @@ admin.site.register(models.User, UserAdmin)
 admin.site.register(Incidencia)
 admin.site.register(TipoIncidencia)
 admin.site.register(IncidenciaPorNotificar)
+admin.site.register(IncidenciaDesacreditada)

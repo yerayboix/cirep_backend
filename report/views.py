@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from django.core import serializers
 
 from cirep.helpers.functions import calculate_distance_between_coordinates
-from report.models import Incidencia, TipoIncidencia, IncidenciaPorNotificar
+from report.models import Incidencia, TipoIncidencia, IncidenciaPorNotificar, IncidenciaDesacreditada
 from report.serializer import IncidenciaSerializer
 from user.authentication import CustomUserAuthentication
 from user.models import User
@@ -130,3 +130,24 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
             report.delete()
 
         return HttpResponse(data, content_type='application/json')
+
+    @action(methods=['post'], detail=True, url_path='discredit-report')
+    def discredit_report(self, request, pk=None):
+        cua = CustomUserAuthentication()
+        request_user = cua.authenticate(request)
+
+        user = User.objects.filter(email=request_user.email).first()
+        incidencia = self.get_object()
+
+        try:
+            incidencia_desacreditada = IncidenciaDesacreditada.objects.get(incidencia=incidencia)
+            incidencia_desacreditada.cantidad_reportes = incidencia_desacreditada.cantidad_reportes + 1
+            incidencia_desacreditada.save()
+        except Exception as e:
+            print(e)
+            new_incidencia_desacreditada = IncidenciaDesacreditada(
+                incidencia=incidencia,
+                cantidad_reportes=1
+            )
+            new_incidencia_desacreditada.save()
+        return Response({'detail': 'Desacreditada con éxito'})

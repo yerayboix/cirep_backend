@@ -53,3 +53,15 @@ class IncidenciaPorNotificar(models.Model):
     class Meta:
         verbose_name = 'Incidencia por notificar'
         verbose_name_plural = 'Incidencias por notificar'
+
+
+class IncidenciaDesacreditada(models.Model):
+    incidencia = models.OneToOneField(Incidencia, on_delete=models.CASCADE, null=False)
+    cantidad_reportes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.id)
+
+    class Meta:
+        verbose_name = 'Incidencia desacreditada'
+        verbose_name_plural = 'Incidencias desacreditadas'
