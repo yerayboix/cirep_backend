@@ -1,0 +1,112 @@
+{% extends 'sidebar.html' %}
+{% block title %}Detalles Incidencia{% endblock %}
+{% block panel_content %}
+    {% load templatefunctions %}
+    <form action="{% url 'revise_report' pk=report.id %}" method="POST" class="form-group"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="detailUser">
+            <div class="card shadow border-0 bg-white mt-5 mb-5">
+                <div class="card-header d-flex justify-content-between align-items-center shadow"
+                     style="background-color: #6096B4!important;">
+                    <h1 class="m-3 text-white">Revisar incidencia: <span>{{ us.first_name }}</span></h1>
+                    <div>
+                        <a class="btn btn-light ml-2 mb-1 shadow" href="{% url 'list_discredit_reports' %}"
+                           data-toggle="tooltip"
+                           data-placement="bottom" title="Volver"><span
+                                class="material-icons"
+                                style="vertical-align: bottom; color: #00a1ca">arrow_back</span></a>
+                        <button class="btn btn-warning ml-2 mb-1 shadow" type="submit"
+                                data-toggle="tooltip"
+                                data-placement="bottom" title="Guardar"><span
+                                class="material-icons"
+                                style="vertical-align: bottom;">save</span></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!--Error message if it exists-->
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ message }}
+                                </div>
+                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ message }}
+                                </div>
+                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row" style="justify-content: center">
+                        <div class="row" style="justify-content: center">
+                            <div class="col-md-4 mt-3 text-center"><label for="image">Imagen:</label>
+                                <img class="form-control" src="data:image/png;base64,{{ report.image }}"
+                                     style="max-width: 350px; max-height: 350px; display: flex" alt="Imagen">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-3 text-center"><label for="state">Estado actual:</label>
+                            <select class="form-select" name="state" required>
+                                {% for choice in state_choices %}
+                                    <option value="{{ choice.0 }}"
+                                            {% if choice.0 == report.state %}selected{% endif %}>{{ choice.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="justify-content: center">
+                        <div class="col-md-4 mt-3"><label for="latitude">Latidud:</label>
+                            <input type="text" class="form-control" name="latitude"
+                                   value="{{ report.latitude }}"
+                                   disabled readonly>
+                        </div>
+                        <div class="col-md-4 mt-3"><label for="longitude">Longitud:</label>
+                            <input type="text" class="form-control" name="longitude"
+                                   value="{{ report.longitude }}"
+                                   disabled readonly>
+                        </div>
+                    </div>
+                    <div class="row" style="justify-content: center">
+                        <div class="col-md-4 mt-3"><label for="author">Autor:</label>
+                            <input type="text" class="form-control" name="author"
+                                   value="{{ report.author }}"
+                                   disabled readonly>
+                        </div>
+                        <div class="col-md-4 mt-3"><label for="report_date">Fecha de notificación:</label>
+                            <input type="text" class="form-control" name="report_date"
+                                   value="{{ report.report_date }}"
+                                   disabled readonly>
+                        </div>
+                    </div>
+                    <div class="row" style="justify-content: center">
+                        <div class="col-md-4 mt-3 text-center"><label for="report_type">Tipo de incidencia:</label>
+                            <select class="form-select" name="report_type" required disabled readonly>
+                                {% for type in report_types %}
+                                    <option value="{{ type.type }}"
+                                            {% if type.type == report.report_type.type %}selected{% endif %}>{{ type.type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row" style="justify-content: center">
+                        <div class="col-md-8 mt-3 text-center"><label for="description">Descripción:</label>
+                            <textarea type="text" class="form-control" name="description" disabled
+                                      readonly>{{ report.description }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

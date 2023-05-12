@@ -77,6 +77,11 @@
                                    {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined"
                                                                                   style="vertical-align: bottom; color: #6096B4">problem</i><span>&nbsp;&nbsp;Incidencias</span></a>
                             </li>
+                        <li><a class="link dropdown-item" href="{% url 'list_discredit_reports' %}"
+                                   {% if '/administrador/incidencias/desacreditadas/' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
+                                   {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined"
+                                                                                  style="vertical-align: bottom; color: #6096B4">notifications</i><span>&nbsp;&nbsp;Incidencias desacreditadas</span></a>
+                            </li>
                             <li><a class="link dropdown-item" href="{% url 'render_dashboard' %}"
                                    {% if '/dashboard/' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
                                    {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined"
