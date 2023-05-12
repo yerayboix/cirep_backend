@@ -11,4 +11,6 @@ urlpatterns = [
     path('get_reports_by_state/', IncidenciaViewSet.as_view({'get': 'get_reports_by_state'}), name='get-reports-by-state'),
     path('get_report/<pk>/', IncidenciaViewSet.as_view({'get': 'get_report'}), name='get-report'),
     path('get_notifications_state/', IncidenciaViewSet.as_view({'get': 'get_notifications_state'}), name='get-notifications-state'),
+    path('get_states/', IncidenciaViewSet.as_view({'get': 'get_states'}), name='get-states'),
+    path('get_report_types/', IncidenciaViewSet.as_view({'get': 'get_report_types'}), name='get-report-types'),
 ]

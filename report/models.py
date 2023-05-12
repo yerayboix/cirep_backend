@@ -28,7 +28,8 @@ class Incidencia(models.Model):
     d_s_c = dict(STATE_CHOICES)
     report_date = models.DateField(null=True)
     description = models.TextField()
-    image = models.CharField(max_length=255)
+    # Imagen en base64
+    image = models.TextField()
     state = models.CharField(choices=STATE_CHOICES, max_length=50, default=0)
     latitude = models.FloatField()
     longitude = models.FloatField()

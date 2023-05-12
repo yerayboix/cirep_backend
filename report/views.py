@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 from django.db.models import QuerySet
@@ -24,6 +25,20 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
     queryset = Incidencia.objects.all()
     serializer_class = IncidenciaSerializer
 
+    @action(methods=['get'], detail=True, url_path='get-states')
+    def get_states(self, request):
+        states = Incidencia.STATE_CHOICES
+        return Response({'states': states})
+
+    @action(methods=['get'], detail=True, url_path='get-report-types')
+    def get_report_types(self, request):
+        types = TipoIncidencia.objects.all()
+        data = []
+        for type in types:
+            data.append(type.pk)
+        data = json.dumps(data)
+        return HttpResponse(data, content_type='application/json')
+
     # personalizamos el endpoint para cambiar el estado
     @action(methods=['post'], detail=True, url_path='change-state')
     def change_state(self, request):
@@ -39,7 +54,6 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
     def get_report(self, request, pk=None):
         incidencia = self.get_object()
         return Response(self.get_serializer(incidencia).data)
-
 
     @action(methods=['get'], detail=True, url_path='get-reports')
     def get_all_reports(self, request):
@@ -102,6 +116,7 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
             print(e)
             return Response({'error': 'Error al guardar incidencia'}, status=status.HTTP_400_BAD_REQUEST)
 
+    # Endpoint para obtener las notificaciones por cambio de estado de un usuario.
     @action(methods=['get'], detail=TipoIncidencia, url_path='get-notifications-state')
     def get_notifications_state(self, request):
         cua = CustomUserAuthentication()
