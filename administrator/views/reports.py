@@ -3,7 +3,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from cirep.helpers.functions import get_by_pk
+from cirep.helpers.functions import get_by_pk, decodify_image
 from report.models import Incidencia, TipoIncidencia, IncidenciaPorNotificar
 from user.models import User
 
@@ -11,7 +11,11 @@ from user.models import User
 @login_required
 def list_reports(request):
     reports = Incidencia.objects.all()
-    context = {'reports': reports}
+    reports_images = []
+    for report in reports:
+        image = report.image
+        reports_images.append((image, report))
+    context = {'reports_images': reports_images}
     return render(request, 'report/index.html', context)
 
 

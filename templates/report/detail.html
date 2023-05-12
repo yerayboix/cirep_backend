@@ -23,26 +23,35 @@
             <div class="card-body">
                 <!--Error message if it exists-->
                 {% if messages %}
-                        {% for message in messages %}
-                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    {{ message }}
-                                </div>
-                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    {{ message }}
-                                </div>
-                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
-                                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    {{ message }}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                {{ message }}
+                            </div>
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                {{ message }}
+                            </div>
+                        {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
                 <div class="row" style="justify-content: center">
+                    <div class="row" style="justify-content: center; align-items: center">
+                        <div class="col-md-4 mt-3 text-center"><label for="image">Imagen:</label>
+                            <img class="form-control" src="data:image/png;base64,{{ report.image }}"
+                                 style="max-width: 350px; max-height: 350px; display: flex" alt="Imagen">
+                        </div>
+                    </div>
                     <div class="col-md-4 mt-3 text-center"><label for="state">Estado actual:</label>
                         <input class="form-control" type="text" name="state"
                                value="{{ report.state|get_report_state }}"
@@ -81,12 +90,9 @@
                     </div>
                 </div>
                 <div class="row" style="justify-content: center">
-                    <div class="col-md-4 mt-3 text-center"><label for="report_type">Imagen:</label>
-                    </div>
-                </div>
-                <div class="row" style="justify-content: center">
                     <div class="col-md-8 mt-3 text-center"><label for="description">Descripción:</label>
-                        <textarea type="text" class="form-control" name="description" disabled readonly>{{ report.description }}</textarea>
+                        <textarea type="text" class="form-control" name="description" disabled
+                                  readonly>{{ report.description }}</textarea>
                     </div>
                 </div>
             </div>

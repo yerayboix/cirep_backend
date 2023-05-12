@@ -45,9 +45,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for report in reports %}
+                    {% for image, report in reports_images %}
                         <tr>
-                            <td>{{ report.image }}</td>
+                            <td><img src="data:image/png;base64,{{ image }}" style="max-width: 100px; max-height: 100px" alt="Imagen"></td>
                             <td>{{ report.id }}</td>
                             <td>{{ report.state }}</td>
                             <td>{{ report.report_type }}</td>

@@ -4,7 +4,6 @@ from PIL import Image
 from io import BytesIO
 
 
-
 # Funcion para obtener en metros la distancia entre 2 puntos especificados por coordenadas
 def calculate_distance_between_coordinates(lat1, lon1, lat2, lon2):
     # Convertir las coordenadas de grados a radianes

@@ -49,6 +49,12 @@
                         {% endfor %}
                     {% endif %}
                     <div class="row" style="justify-content: center">
+                        <div class="row" style="justify-content: center">
+                            <div class="col-md-4 mt-3 text-center"><label for="image">Imagen:</label>
+                                <img class="form-control" src="data:image/png;base64,{{ report.image }}"
+                                     style="max-width: 350px; max-height: 350px; display: flex" alt="Imagen">
+                            </div>
+                        </div>
                         <div class="col-md-4 mt-3 text-center"><label for="state">Estado actual:</label>
                             <select class="form-select" name="state" required>
                                 {% for choice in state_choices %}
@@ -92,10 +98,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row" style="justify-content: center">
-                        <div class="col-md-4 mt-3 text-center"><label for="report_type">Imagen:</label>
-                        </div>
-                    </div>
+
                     <div class="row" style="justify-content: center">
                         <div class="col-md-8 mt-3 text-center"><label for="description">Descripción:</label>
                             <textarea type="text" class="form-control" name="description" disabled
