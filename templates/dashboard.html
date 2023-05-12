@@ -3,19 +3,24 @@
 {% block title %}Personas{% endblock %}
 {% block panel_content %}
     {% load templatefunctions %}
-
-    <div class="row row-cols-1 row-cols-md-2 mt-4">
-        <div class="col mb-4">
-            <div class="card shadow border-light">
-                <div class="card-body">
-                    <canvas id="myChart"></canvas>
+    <div class="card shadow border-0 bg-white mt-5 mb-5">
+        <div class="card-header d-flex justify-content-center align-items-center shadow"
+             style="background-color: #6096B4!important;">
+            <h1 class="m-3 text-white">Estadísticas</h1>
+        </div>
+        <div class="card-body row row-cols-1 row-cols-md-2 mt-4">
+            <div class="col mb-4">
+                <div class="card shadow" style="background-color: #EEE9DA!important;">
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col mb-4 ">
-            <div class="card shadow border-light" style="">
-                <div class="card-body">
-                    <canvas id="myChart1"></canvas>
+            <div class="col mb-4 ">
+                <div class="card shadow" style="background-color: #EEE9DA!important;">
+                    <div class="card-body">
+                        <canvas id="myChart1"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,19 +57,42 @@
     </script>
     <script>
         const ctx1 = document.getElementById("myChart1");
-        const Enero = {{ fechas_clasificadas.enero|length }} | 0;
-        const Febrero = {{ fechas_clasificadas.febrero|length }} | 0;
-        const Marzo = {{ fechas_clasificadas.marzo|length }} | 0;
-        const Abril = {{ fechas_clasificadas.abril|length }} | 0;
-        const Mayo = {{ fechas_clasificadas.mayo|length }} | 0;
-        const Junio = {{ fechas_clasificadas.junio|length }} | 0;
-        const Julio = {{ fechas_clasificadas.julio|length }} | 0;
-        const Agosto = {{ fechas_clasificadas.agosto|length }} | 0;
-        const Septiembre = {{ fechas_clasificadas.septiembre|length }} | 0;
-        const Octubre = {{ fechas_clasificadas.octubre|length }} | 0;
-        const Noviembre = {{ fechas_clasificadas.noviembre|length }} | 0;
-        const Diciembre = {{ fechas_clasificadas.diciembre|length }} | 0;
-
+        const Enero =
+        {{ fechas_clasificadas.enero|length }} |
+        0;
+        const Febrero =
+        {{ fechas_clasificadas.febrero|length }} |
+        0;
+        const Marzo =
+        {{ fechas_clasificadas.marzo|length }} |
+        0;
+        const Abril =
+        {{ fechas_clasificadas.abril|length }} |
+        0;
+        const Mayo =
+        {{ fechas_clasificadas.mayo|length }} |
+        0;
+        const Junio =
+        {{ fechas_clasificadas.junio|length }} |
+        0;
+        const Julio =
+        {{ fechas_clasificadas.julio|length }} |
+        0;
+        const Agosto =
+        {{ fechas_clasificadas.agosto|length }} |
+        0;
+        const Septiembre =
+        {{ fechas_clasificadas.septiembre|length }} |
+        0;
+        const Octubre =
+        {{ fechas_clasificadas.octubre|length }} |
+        0;
+        const Noviembre =
+        {{ fechas_clasificadas.noviembre|length }} |
+        0;
+        const Diciembre =
+        {{ fechas_clasificadas.diciembre|length }} |
+        0;
 
 
         new Chart(ctx1, {
