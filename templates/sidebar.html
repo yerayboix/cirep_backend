@@ -69,11 +69,22 @@
                         <ul class="dropdown-menu">
                             <li><a class="link dropdown-item" href="{% url 'list_users' %}"
                                    {% if '/administrador/usuarios/listado' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
-                                   {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined" style="vertical-align: bottom; color: #6096B4">group</i><span>&nbsp;&nbsp;Usuarios</span></a></li>
+                                   {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined"
+                                                                                  style="vertical-align: bottom; color: #6096B4">group</i><span>&nbsp;&nbsp;Usuarios</span></a>
+                            </li>
                             <li><a class="link dropdown-item" href="{% url 'list_reports' %}"
                                    {% if '/administrador/incidencias/listado' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
-                                   {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined" style="vertical-align: bottom; color: #6096B4">problem</i><span>&nbsp;&nbsp;Incidencias</span></a></li>
-                            <li><a class="link dropdown-item" style="color: #6096B4" href="{% url 'logout_view' %}"><i class="material-symbols-outlined" style="vertical-align: bottom; color: #6096B4">logout</i><span>&nbsp;&nbsp;Cerrar sesión</span></a></li>
+                                   {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined"
+                                                                                  style="vertical-align: bottom; color: #6096B4">problem</i><span>&nbsp;&nbsp;Incidencias</span></a>
+                            </li>
+                            <li><a class="link dropdown-item" href="{% url 'render_dashboard' %}"
+                                   {% if '/dashboard/' in request.path %}style="color: #047cfc; background-color: #d3e7f2"
+                                   {% else %}style="color:#00a1ca;"{% endif %}><i class="material-symbols-outlined"
+                                                                                  style="vertical-align: bottom; color: #6096B4">dashboard</i><span>&nbsp;&nbsp;Dashboard</span></a>
+                            </li>
+                            <li><a class="link dropdown-item" style="color: #6096B4" href="{% url 'logout_view' %}"><i
+                                    class="material-symbols-outlined" style="vertical-align: bottom; color: #6096B4">logout</i><span>&nbsp;&nbsp;Cerrar sesión</span></a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

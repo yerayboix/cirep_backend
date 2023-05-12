@@ -1,5 +1,8 @@
+import locale
 import math
 import base64
+from datetime import datetime
+
 from PIL import Image
 from io import BytesIO
 
@@ -60,3 +63,23 @@ def codify_image_base64(imagen):
     base64_string = base64.b64encode(imagen_bytes).decode('utf-8')
 
     return base64_string
+
+
+def clasificar_por_mes(fechas):
+    fechas_clasificadas = {}
+
+    # Establecer el idioma a español
+    locale.setlocale(locale.LC_TIME, 'es_ES.utf8')
+
+    for fecha in fechas:
+        # Obtener el mes de la fecha
+        mes = fecha.strftime("%B")
+
+        # Agregar la fecha al mes correspondiente
+        if mes in fechas_clasificadas:
+            fechas_clasificadas[mes].append(fecha)
+        else:
+            fechas_clasificadas[mes] = [fecha]
+
+    return fechas_clasificadas
+
