@@ -74,7 +74,10 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
 
     @action(methods=['post'], detail=True, url_path='get-nearby-reports')
     def get_nearby_reports(self, request):
-        reports = Incidencia.objects.exclude(state='D').exclude(state='A')
+        cua = CustomUserAuthentication()
+        request_user = cua.authenticate(request)
+
+        reports = Incidencia.objects.exclude(state='D').exclude(state='A').exclude(author=request_user.email)
         user_latitude = float(request.data.get('latitude'))
         user_longitude = float(request.data.get('longitude'))
         distance_range = 100    # Distance in meters (configurable)
