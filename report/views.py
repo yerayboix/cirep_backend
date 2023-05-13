@@ -72,7 +72,7 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
         data = serializers.serialize('json', reports)
         return HttpResponse(data, content_type='application/json')
 
-    @action(methods=['get'], detail=True, url_path='get-nearby-reports')
+    @action(methods=['post'], detail=True, url_path='get-nearby-reports')
     def get_nearby_reports(self, request):
         reports = Incidencia.objects.exclude(state='D').exclude(state='A')
         user_latitude = float(request.data.get('latitude'))
@@ -86,7 +86,7 @@ class IncidenciaViewSet(mixins.CreateModelMixin,
         data = serializers.serialize('json', reports_to_send)
         return HttpResponse(data, content_type='application/json')
 
-    @action(methods=['get'], detail=True, url_path='get-reports-by-type')
+    @action(methods=['post'], detail=True, url_path='get-reports-by-type')
     def get_reports_by_state(self, request):
         report_state = request.data.get('report_state', '')
         reports = Incidencia.objects.filter(state=report_state)
