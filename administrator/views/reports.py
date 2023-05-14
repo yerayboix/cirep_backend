@@ -97,6 +97,11 @@ def revise_report(request, pk):
                     new_incidencia_por_notificar.save()
                 except Exception as e:
                     print(e)
+                try:
+                    incidencia_desacreditada = IncidenciaDesacreditada.objects.filter(incidencia=report)
+                    incidencia_desacreditada.delete()
+                except Exception as e:
+                    print(e)
             report.state = state
             report.save()
         except Exception as e:
@@ -105,7 +110,7 @@ def revise_report(request, pk):
             url = '/administrador/incidencias/desacreditadas/'
             return redirect(url)
         url = '/administrador/incidencias/desacreditadas/'
-        messages.add_message(request, messages.SUCCESS, 'Incidencia actualizada con éxito.')
+        messages.add_message(request, messages.SUCCESS, 'Incidencia revisada con éxito.')
         return redirect(url)
 
     return render(request, 'report/revise_report.html', context)
