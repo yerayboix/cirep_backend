@@ -12,6 +12,7 @@ from user.models import User
 def list_reports(request):
     reports = Incidencia.objects.all()
     reports_images = []
+    request.session['origen'] = request.build_absolute_uri()
     for report in reports:
         image = report.image
         reports_images.append((image, report))
@@ -30,6 +31,7 @@ def list_discredit_reports(request):
 def list_user_reports(request, pk):
     us = User.objects.get(pk=pk)
     reports = Incidencia.objects.filter(author=us.email)
+    request.session['origen'] = request.build_absolute_uri()
     context = {'reports': reports, 'us': us}
     return render(request, 'report/user_reports.html', context)
 
@@ -37,7 +39,8 @@ def list_user_reports(request, pk):
 @login_required
 def report_detail(request, pk):
     report = get_by_pk(Incidencia, pk)
-    context = {'report': report, 'd_s_c': Incidencia.d_s_c}
+    origen = request.GET.get('origen')
+    context = {'report': report, 'd_s_c': Incidencia.d_s_c, 'url_origen': origen}
     return render(request, 'report/detail.html', context)
 
 
@@ -45,7 +48,9 @@ def report_detail(request, pk):
 def report_update(request, pk):
     report = get_by_pk(Incidencia, pk)
     report_types = TipoIncidencia.objects.all()
-    context = {'report': report, 'state_choices': Incidencia.STATE_CHOICES, 'report_types': report_types}
+    origen = request.GET.get('origen')
+    print(origen)
+    context = {'report': report, 'state_choices': Incidencia.STATE_CHOICES, 'report_types': report_types, 'url_origen': origen}
     if request.method == 'POST':
         state = request.POST['state']
         report_type = request.POST['report_type']
@@ -65,11 +70,12 @@ def report_update(request, pk):
         except Exception as e:
             print(e)
             messages.add_message(request, messages.ERROR, 'Ocurrió un error: {0}'.format(e))
-            url = '/administrador/incidencias/detalles/{0}'.format(report.id)
-            return redirect(url)
-        url = '/administrador/incidencias/detalles/{0}'.format(report.id)
+            url = '/administrador/incidencias/detalles/{0}?origen={1}'.format(report.id, origen)
+            return redirect(request.META['HTTP_REFERER'])
+
+        url = '/administrador/incidencias/detalles/{0}?origen={1}'.format(report.id, origen)
         messages.add_message(request, messages.SUCCESS, 'Incidencia actualizada con éxito.')
-        return redirect(url)
+        return redirect(request.META['HTTP_REFERER'])
 
     return render(request, 'report/update.html', context)
 

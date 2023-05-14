@@ -53,7 +53,7 @@
                             <td>{{ report.report_type }}</td>
                             <td>{{ report.report_date }}</td>
                             <td><a class="btn btn-light ml-2 mb-1 shadow-sm"
-                                   href="{% url 'report_detail' pk=report.id %}" data-toggle="tooltip"
+                                   href="{% url 'report_detail' pk=report.id %}?origen={{ request.path }}" data-toggle="tooltip"
                                    data-placement="bottom" title="Detalles">
                                     <span class="material-symbols-outlined"
                                           style="vertical-align: bottom; color: #6096B4">info</span></a></td>
