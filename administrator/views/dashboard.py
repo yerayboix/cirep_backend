@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from cirep.helpers.functions import clasificar_por_mes
@@ -5,6 +6,7 @@ from report.models import Incidencia
 from user.models import User
 
 
+@login_required
 def render_dashboard(request):
     incidencias = Incidencia.objects.all()
     incidencias_arregladas = Incidencia.objects.filter(state='A')
